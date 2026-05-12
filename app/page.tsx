@@ -98,7 +98,7 @@ export default function Home() {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h1 className="text-2xl font-semibold text-gray-800">Manga Reaction Library</h1>
-                <p className="text-sm text-gray-400 mt-1">Your collection of reaction panels.</p>
+                <p className="text-sm text-gray-400 mt-1">A collection of reaction panels.</p>
               </div>
               <button
                 onClick={() => setShowModal(true)}
@@ -140,6 +140,50 @@ export default function Home() {
                   </div>
                 ))}
             </div>
+            )}
+          </>
+        )}
+
+        {/* DETAIL VIEW */}
+        {selectedManga && (
+          <>
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => setSelectedManga(null)}
+                  className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  ← Library
+                </button>
+                <h1 className="text-2xl font-semibold text-gray-800">{selectedManga.title}</h1>
+              </div>
+              <button
+                onClick={() => setShowModal(true)}
+                className="bg-gray-800 text-white text-sm px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                + Add panel
+              </button>
+            </div>
+
+            {selectedManga.panels.length === 0 ? (
+              <div className="text-center py-24 text-gray-300 text-sm">
+                No panels yet. Add one to get started.
+              </div>
+            ) : (
+              <div className="grid grid-cols-4 gap-4">
+                {selectedManga.panels.map((panel, index) => (
+                  <div key={index} className="bg-white border border-gray-100 rounded-lg overflow-hidden">
+                    <div className="h-40 bg-gray-50 overflow-hidden">
+                      {panel.image && (
+                        <img src={panel.image} alt={`Panel ${index + 1}`} className="w-full h-full object-cover" />
+                      )}
+                    </div>
+                    <div className="p-2">
+                      <p className="text-xs text-gray-400">Ch. {panel.chapter}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             )}
           </>
         )}
